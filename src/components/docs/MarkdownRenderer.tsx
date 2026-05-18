@@ -22,15 +22,9 @@ async function getHighlighter(): Promise<HighlighterCore> {
   if (highlighterPromise) return highlighterPromise
 
   highlighterPromise = (async () => {
-    const [js, zig, bash, json, md, ts, css, html] = await Promise.all([
-      import('shiki/langs/javascript.mjs'),
+    const [zig, bash] = await Promise.all([
       import('shiki/langs/zig.mjs'),
       import('shiki/langs/bash.mjs'),
-      import('shiki/langs/json.mjs'),
-      import('shiki/langs/markdown.mjs'),
-      import('shiki/langs/typescript.mjs'),
-      import('shiki/langs/css.mjs'),
-      import('shiki/langs/html.mjs'),
     ])
     const [tokyoNight, githubLight] = await Promise.all([
       import('shiki/themes/tokyo-night.mjs'),
@@ -39,10 +33,7 @@ async function getHighlighter(): Promise<HighlighterCore> {
 
     const hl = createHighlighterCoreSync({
       themes: [tokyoNight.default, githubLight.default],
-      langs: [
-        js.default, zig.default, bash.default, json.default,
-        md.default, ts.default, css.default, html.default,
-      ],
+      langs: [zig.default, bash.default],
       engine: createJavaScriptRegexEngine(),
     })
     highlighterInstance = hl
