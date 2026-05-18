@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
+    <title>ZIEZ.DEV - Declarative Zig Web Framework</title>
+    <script>
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        [
+          '<link rel="icon" type="image/x-icon" sizes="16x16" href="/favicon_16.ico" />',
+          '<link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon_32.ico" />',
+          '<link rel="icon" type="image/png" sizes="48x48" href="/favicon_48.png" />',
+          '<link rel="apple-touch-icon" sizes="180x180" href="/favicon_180.png" />',
+          '<link rel="icon" type="image/png" sizes="192x192" href="/favicon_192.png" />',
+        ].join(""),
+      );
+    </script>
+    <script type="module" src="./frontend.tsx" async></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

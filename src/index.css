@@ -1,0 +1,161 @@
+@import "../styles/globals.css";
+
+@layer base {
+  :root {
+    @apply font-sans antialiased;
+  }
+
+  body {
+    @apply min-h-screen bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #a1a1aa transparent;
+  }
+
+  .dark * {
+    scrollbar-color: #52525b transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d4d4d8;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a1a1aa;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: #3f3f46;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background-color: #52525b;
+  }
+
+  pre.shiki {
+    background-color: #fafafa !important;
+    border-radius: 0 0 0.75rem 0.75rem;
+    padding: 0.875rem 1.25rem !important;
+    overflow-x: auto;
+    font-size: 0.8125rem !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+  }
+
+  .dark pre.shiki {
+    background-color: #18181b !important;
+  }
+
+  pre.shiki code {
+    white-space: pre !important;
+  }
+
+  .not-prose pre code {
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    white-space: pre !important;
+  }
+
+  pre.shiki code .line {
+    display: block;
+  }
+
+  .not-prose pre {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .not-prose pre.shiki {
+    padding: 0.875rem 1.25rem !important;
+    background-color: #fafafa !important;
+    display: block !important;
+  }
+
+  .dark .not-prose pre.shiki {
+    background-color: #18181b !important;
+  }
+
+  .not-prose pre code .line {
+    display: inline !important;
+  }
+
+  .not-prose pre code .line:last-child::after {
+    content: none;
+  }
+}
+
+.theme-chrome {
+  view-transition-name: none;
+}
+
+.theme-chrome,
+.theme-chrome * {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation-name: theme-fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-fade-in;
+}
+
+@keyframes theme-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  *,
+  ::before,
+  ::after {
+    animation: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
