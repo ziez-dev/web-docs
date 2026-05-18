@@ -11,7 +11,8 @@
     "lint:fix": "biome check --write src styles build.ts",
     "format": "biome format --write src styles build.ts",
     "typecheck": "tsc --noEmit",
-    "check": "bun run typecheck && bun run lint"
+    "check": "bun run typecheck && bun run lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",
@@ -36,6 +37,7 @@
     "@types/bun": "latest",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "husky": "^9.1.7",
     "tailwindcss": "^4.1.11"
   }
 }
