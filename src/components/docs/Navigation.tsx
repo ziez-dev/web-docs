@@ -10,6 +10,7 @@ import {
 import { useSectionStore } from '@/components/docs/SectionProvider'
 import { Tag } from '@/components/docs/Tag'
 import { remToPx } from '@/lib/remToPx'
+import { preloadContent } from '@/content/index'
 
 interface NavGroup {
   title: string
@@ -71,6 +72,7 @@ function NavLink({
     <Link
       to={href}
       aria-current={active ? 'page' : undefined}
+      onMouseEnter={() => preloadContent(href)}
       onClick={() => {
         if (isInsideMobileNavigation) {
           closeMobileNavigation()

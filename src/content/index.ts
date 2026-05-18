@@ -1,56 +1,55 @@
-import introductionMd from './getting-started/introduction.md' with { type: 'text' }
-import quickStartMd from './getting-started/quick-start.md' with { type: 'text' }
-import projectStructureMd from './getting-started/project-structure.md' with { type: 'text' }
+export const contentPaths: Record<string, string> = {
+  '/': '/content/getting-started/introduction.md',
+  '/getting-started/quick-start': '/content/getting-started/quick-start.md',
+  '/getting-started/project-structure': '/content/getting-started/project-structure.md',
 
-import routingMd from './essential/routing.md' with { type: 'text' }
-import requestMd from './essential/request.md' with { type: 'text' }
-import responseMd from './essential/response.md' with { type: 'text' }
-import middlewareMd from './essential/middleware.md' with { type: 'text' }
-import errorHandlingMd from './essential/error-handling.md' with { type: 'text' }
+  '/essential/routing': '/content/essential/routing.md',
+  '/essential/request': '/content/essential/request.md',
+  '/essential/response': '/content/essential/response.md',
+  '/essential/middleware': '/content/essential/middleware.md',
+  '/essential/error-handling': '/content/essential/error-handling.md',
 
-import serializationMd from './patterns/serialization.md' with { type: 'text' }
-import streamingMd from './patterns/streaming.md' with { type: 'text' }
-import interceptorsMd from './patterns/interceptors.md' with { type: 'text' }
-import validationMd from './patterns/validation.md' with { type: 'text' }
-import schemaValidationMd from './patterns/schema-validation.md' with { type: 'text' }
-import cookiesMd from './patterns/cookies.md' with { type: 'text' }
-import environmentMd from './patterns/environment.md' with { type: 'text' }
-import loggingMd from './patterns/logging.md' with { type: 'text' }
+  '/patterns/serialization': '/content/patterns/serialization.md',
+  '/patterns/streaming': '/content/patterns/streaming.md',
+  '/patterns/interceptors': '/content/patterns/interceptors.md',
+  '/patterns/validation': '/content/patterns/validation.md',
+  '/patterns/schema-validation': '/content/patterns/schema-validation.md',
+  '/patterns/cookies': '/content/patterns/cookies.md',
+  '/patterns/environment': '/content/patterns/environment.md',
+  '/patterns/logging': '/content/patterns/logging.md',
 
-import pluginsOverviewMd from './plugins/overview.md' with { type: 'text' }
-import ziezCorsMd from './plugins/ziez-cors.md' with { type: 'text' }
-import ziezCompressionMd from './plugins/ziez-compression.md' with { type: 'text' }
-import ziezSecurityMd from './plugins/ziez-security.md' with { type: 'text' }
-import ziezStaticMd from './plugins/ziez-static.md' with { type: 'text' }
-import ziezTemplateMd from './plugins/ziez-template.md' with { type: 'text' }
-import ziezTlsMd from './plugins/ziez-tls.md' with { type: 'text' }
-import ziezTrackerMd from './plugins/ziez-tracker.md' with { type: 'text' }
-import ziezUaParserMd from './plugins/ziez-ua-parser.md' with { type: 'text' }
+  '/plugins/overview': '/content/plugins/overview.md',
+  '/plugins/ziez-cors': '/content/plugins/ziez-cors.md',
+  '/plugins/ziez-compression': '/content/plugins/ziez-compression.md',
+  '/plugins/ziez-security': '/content/plugins/ziez-security.md',
+  '/plugins/ziez-static': '/content/plugins/ziez-static.md',
+  '/plugins/ziez-template': '/content/plugins/ziez-template.md',
+  '/plugins/ziez-tls': '/content/plugins/ziez-tls.md',
+  '/plugins/ziez-tracker': '/content/plugins/ziez-tracker.md',
+  '/plugins/ziez-ua-parser': '/content/plugins/ziez-ua-parser.md',
+}
 
-export const contentMap: Record<string, string> = {
-  '/': introductionMd,
-  '/getting-started/quick-start': quickStartMd,
-  '/getting-started/project-structure': projectStructureMd,
-  '/essential/routing': routingMd,
-  '/essential/request': requestMd,
-  '/essential/response': responseMd,
-  '/essential/middleware': middlewareMd,
-  '/essential/error-handling': errorHandlingMd,
-  '/patterns/serialization': serializationMd,
-  '/patterns/streaming': streamingMd,
-  '/patterns/interceptors': interceptorsMd,
-  '/patterns/validation': validationMd,
-  '/patterns/schema-validation': schemaValidationMd,
-  '/patterns/cookies': cookiesMd,
-  '/patterns/environment': environmentMd,
-  '/patterns/logging': loggingMd,
-  '/plugins/overview': pluginsOverviewMd,
-  '/plugins/ziez-cors': ziezCorsMd,
-  '/plugins/ziez-compression': ziezCompressionMd,
-  '/plugins/ziez-security': ziezSecurityMd,
-  '/plugins/ziez-static': ziezStaticMd,
-  '/plugins/ziez-template': ziezTemplateMd,
-  '/plugins/ziez-tls': ziezTlsMd,
-  '/plugins/ziez-tracker': ziezTrackerMd,
-  '/plugins/ziez-ua-parser': ziezUaParserMd,
+const cache = new Map<string, string>()
+
+export function getContentPath(pathname: string) {
+  return contentPaths[pathname] ?? null
+}
+
+export async function fetchContent(pathname: string): Promise<string | null> {
+  const contentPath = contentPaths[pathname]
+  if (!contentPath) return null
+
+  const cached = cache.get(contentPath)
+  if (cached) return cached
+
+  const res = await fetch(contentPath)
+  if (!res.ok) return null
+
+  const text = await res.text()
+  cache.set(contentPath, text)
+  return text
+}
+
+export function preloadContent(pathname: string) {
+  fetchContent(pathname)
 }

@@ -32,3 +32,15 @@ if (existsSync(publicDir)) {
 	await cp(publicDir, outdir, { recursive: true });
 	console.log(` copied public assets -> ${path.relative(process.cwd(), outdir)}`);
 }
+
+const contentSrc = path.join(process.cwd(), "src/content");
+const contentOut = path.join(outdir, "content");
+const mdFiles = [...new Bun.Glob("**/*.md").scanSync({ cwd: contentSrc })];
+for (const file of mdFiles) {
+	const src = path.join(contentSrc, file);
+	const dest = path.join(contentOut, file);
+	await Bun.write(dest, Bun.file(src));
+}
+console.log(
+	` copied ${mdFiles.length} content files -> ${path.relative(process.cwd(), contentOut)}`,
+);

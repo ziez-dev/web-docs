@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { Button } from '@/components/docs/Button'
 import { navigation } from '@/components/docs/Navigation'
-
+import { preloadContent } from '@/content/index'
 function PageLink({
   label,
   page,
@@ -26,6 +26,7 @@ function PageLink({
         to={page.href}
         tabIndex={-1}
         aria-hidden="true"
+        onMouseEnter={() => preloadContent(page.href)}
         className="text-base font-semibold text-zinc-900 transition hover:text-zinc-600 dark:text-white dark:hover:text-zinc-300"
       >
         {page.title}

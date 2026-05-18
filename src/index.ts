@@ -3,12 +3,22 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 
 const publicDir = path.join(process.cwd(), "public");
+const contentDir = path.join(process.cwd(), "src/content");
 const docsRoutePrefixes = ["/getting-started/", "/essential/", "/patterns/", "/plugins/"] as const;
 const port = Number(process.env.PORT ?? 3000);
 
 function resolvePublicAsset(url: URL) {
   const relativePath = decodeURIComponent(url.pathname).replace(/^\/+/, "");
   if (relativePath.length === 0) {
+    return null;
+  }
+
+  // Serve content .md files from src/content
+  if (relativePath.startsWith("content/")) {
+    const mdPath = path.resolve(contentDir, relativePath.replace("content/", ""));
+    if (mdPath.startsWith(`${contentDir}${path.sep}`) && existsSync(mdPath)) {
+      return Bun.file(mdPath);
+    }
     return null;
   }
 
