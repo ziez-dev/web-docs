@@ -11,7 +11,7 @@ export function extractHeadings(markdown: string): Heading[] {
   const headings: Heading[] = []
   for (const line of markdown.split('\n')) {
     const match = line.match(/^(#{2,3})\s+(.+)$/)
-    if (match) {
+    if (match?.[1] && match[2]) {
       const level = match[1].length as 2 | 3
       const text = match[2].trim()
       const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
@@ -37,7 +37,7 @@ export function TableOfContents({ content }: { content?: string }) {
       if (skipScrollRef.current) return
 
       const scrollY = window.scrollY + 100
-      let current = headings[0].id
+      let current = headings[0]?.id ?? ''
 
       for (const h of headings) {
         const el = document.getElementById(h.id)

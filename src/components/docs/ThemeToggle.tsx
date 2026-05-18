@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useTheme } from '@/components/docs/ThemeProvider'
+import { useTheme, type Theme } from '@/components/docs/ThemeProvider'
 
 function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -23,7 +23,7 @@ function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function ThemeToggle() {
   let { resolvedTheme, setTheme } = useTheme()
-  let otherTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
+  let otherTheme: Theme = resolvedTheme === 'dark' ? 'light' : 'dark'
   let [mounted, setMounted] = useState(false)
 
   useEffect(() => {

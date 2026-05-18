@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "bun --hot src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts"
+    "build": "bun run build.ts",
+    "lint": "biome check src styles build.ts",
+    "lint:fix": "biome check --write src styles build.ts",
+    "format": "biome format --write src styles build.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run typecheck && bun run lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",
@@ -26,6 +31,7 @@
     "zustand": "^5.0.13"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
     "@tailwindcss/typography": "^0.5.19",
     "@types/bun": "latest",
     "@types/react": "^19",

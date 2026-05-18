@@ -46,7 +46,7 @@ const server = Bun.serve({
     }
 
     if (isDocsRoute(url.pathname)) {
-      return index;
+      return index as unknown as Response;
     }
 
     return new Response("Not Found", { status: 404 });
