@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import "./index.css";
 
 import { ThemeProvider } from '@/components/docs/ThemeProvider'
@@ -18,9 +18,13 @@ function ScrollToTop() {
   return null
 }
 
-function DocsPage() {
+function DocsPage({ onContentChange }: { onContentChange?: (content?: string) => void }) {
   const { pathname } = useLocation()
   const content = contentMap[pathname]
+
+  useEffect(() => {
+    onContentChange?.(content)
+  }, [content, onContentChange])
 
   if (!content) {
     return (
@@ -49,13 +53,15 @@ function DocsPage() {
 }
 
 export function App() {
+  const [content, setContent] = useState<string | undefined>()
+
   return (
     <ThemeProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <Layout>
+        <Layout content={content}>
           <Routes>
-            <Route path="*" element={<DocsPage />} />
+            <Route path="*" element={<DocsPage onContentChange={setContent} />} />
           </Routes>
         </Layout>
       </BrowserRouter>

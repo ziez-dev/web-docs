@@ -6,17 +6,20 @@ import { Header } from '@/components/docs/Header'
 import { Logo } from '@/components/docs/Logo'
 import { Navigation } from '@/components/docs/Navigation'
 import { SectionProvider, type Section } from '@/components/docs/SectionProvider'
+import { TableOfContents } from '@/components/docs/TableOfContents'
 
 export function Layout({
   children,
   sections = [],
+  content,
 }: {
   children: React.ReactNode
   sections?: Array<Section>
+  content?: string
 }) {
   return (
     <SectionProvider sections={sections}>
-      <div className="h-full lg:ml-72 xl:ml-80">
+      <div className="h-full lg:ml-72 xl:mr-52 xl:ml-80">
         <motion.header
           layoutScroll
           className="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex"
@@ -40,6 +43,7 @@ export function Layout({
           <Footer />
         </div>
       </div>
+      <TableOfContents content={content} />
     </SectionProvider>
   )
 }
