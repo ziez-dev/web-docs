@@ -9,7 +9,7 @@ export function Logo({ className }: { className?: string }) {
       )}
     >
       <img
-        src="/favicon_48.png"
+        src="./favicon_48.png"
         alt=""
         className="h-10 w-10 rounded-md object-cover"
       />

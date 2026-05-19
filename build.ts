@@ -19,6 +19,7 @@ const result = await Bun.build({
 	splitting: true,
 	define: {
 		"process.env.NODE_ENV": JSON.stringify("production"),
+		"process.env.BASE_PATH": JSON.stringify(process.env.BASE_PATH ?? ""),
 	},
 });
 

@@ -1,32 +1,40 @@
-export const contentPaths: Record<string, string> = {
-  '/': '/content/getting-started/introduction.md',
-  '/getting-started/quick-start': '/content/getting-started/quick-start.md',
+const base = (typeof process !== 'undefined' && process.env.BASE_PATH) || ''
 
-  '/essential/routing': '/content/essential/routing.md',
-  '/essential/request': '/content/essential/request.md',
-  '/essential/response': '/content/essential/response.md',
-  '/essential/middleware': '/content/essential/middleware.md',
-  '/essential/error-handling': '/content/essential/error-handling.md',
-
-  '/patterns/serialization': '/content/patterns/serialization.md',
-  '/patterns/streaming': '/content/patterns/streaming.md',
-  '/patterns/interceptors': '/content/patterns/interceptors.md',
-  '/patterns/validation': '/content/patterns/validation.md',
-  '/patterns/schema-validation': '/content/patterns/schema-validation.md',
-  '/patterns/cookies': '/content/patterns/cookies.md',
-  '/patterns/environment': '/content/patterns/environment.md',
-  '/patterns/logging': '/content/patterns/logging.md',
-
-  '/plugins/overview': '/content/plugins/overview.md',
-  '/plugins/ziez-cors': '/content/plugins/ziez-cors.md',
-  '/plugins/ziez-compression': '/content/plugins/ziez-compression.md',
-  '/plugins/ziez-security': '/content/plugins/ziez-security.md',
-  '/plugins/ziez-static': '/content/plugins/ziez-static.md',
-  '/plugins/ziez-template': '/content/plugins/ziez-template.md',
-  '/plugins/ziez-tls': '/content/plugins/ziez-tls.md',
-  '/plugins/ziez-tracker': '/content/plugins/ziez-tracker.md',
-  '/plugins/ziez-ua-parser': '/content/plugins/ziez-ua-parser.md',
+function asset(path: string) {
+  return `${base}${path}`
 }
+
+export const contentPaths: Record<string, string> = {
+  '/': asset('/content/getting-started/introduction.md'),
+  '/getting-started/quick-start': asset('/content/getting-started/quick-start.md'),
+
+  '/essential/routing': asset('/content/essential/routing.md'),
+  '/essential/request': asset('/content/essential/request.md'),
+  '/essential/response': asset('/content/essential/response.md'),
+  '/essential/middleware': asset('/content/essential/middleware.md'),
+  '/essential/error-handling': asset('/content/essential/error-handling.md'),
+
+  '/patterns/serialization': asset('/content/patterns/serialization.md'),
+  '/patterns/streaming': asset('/content/patterns/streaming.md'),
+  '/patterns/interceptors': asset('/content/patterns/interceptors.md'),
+  '/patterns/validation': asset('/content/patterns/validation.md'),
+  '/patterns/schema-validation': asset('/content/patterns/schema-validation.md'),
+  '/patterns/cookies': asset('/content/patterns/cookies.md'),
+  '/patterns/environment': asset('/content/patterns/environment.md'),
+  '/patterns/logging': asset('/content/patterns/logging.md'),
+
+  '/plugins/overview': asset('/content/plugins/overview.md'),
+  '/plugins/ziez-cors': asset('/content/plugins/ziez-cors.md'),
+  '/plugins/ziez-compression': asset('/content/plugins/ziez-compression.md'),
+  '/plugins/ziez-security': asset('/content/plugins/ziez-security.md'),
+  '/plugins/ziez-static': asset('/content/plugins/ziez-static.md'),
+  '/plugins/ziez-template': asset('/content/plugins/ziez-template.md'),
+  '/plugins/ziez-tls': asset('/content/plugins/ziez-tls.md'),
+  '/plugins/ziez-tracker': asset('/content/plugins/ziez-tracker.md'),
+  '/plugins/ziez-ua-parser': asset('/content/plugins/ziez-ua-parser.md'),
+}
+
+export { base }
 
 const cache = new Map<string, string>()
 

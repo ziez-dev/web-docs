@@ -20,6 +20,8 @@ jobs:
 
       - name: Build
         run: bun run build
+        env:
+          BASE_PATH: /docs
 
       - name: Deploy
         env:

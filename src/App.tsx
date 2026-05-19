@@ -57,7 +57,7 @@ export function App() {
 
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={typeof process !== 'undefined' && process.env.BASE_PATH || undefined}>
         <ScrollToTop />
         <Layout content={content}>
           <Routes>
