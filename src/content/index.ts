@@ -1,7 +1,6 @@
 export const contentPaths: Record<string, string> = {
   '/': '/content/getting-started/introduction.md',
   '/getting-started/quick-start': '/content/getting-started/quick-start.md',
-  '/getting-started/project-structure': '/content/getting-started/project-structure.md',
 
   '/essential/routing': '/content/essential/routing.md',
   '/essential/request': '/content/essential/request.md',
