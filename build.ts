@@ -51,5 +51,7 @@ if (basePath) {
 	let html = await Bun.file(indexPath).text();
 	html = html.replace("<head>", `<head><base href="${basePath}/">`);
 	await Bun.write(indexPath, html);
+	await Bun.write(path.join(outdir, "404.html"), html);
 	console.log(` injected <base href="${basePath}/">`);
+	console.log(` created 404.html for SPA routing`);
 }
