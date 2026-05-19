@@ -20,8 +20,9 @@ jobs:
 
       - name: Build
         run: bun run build
-        env:
-          BASE_PATH: /docs
+
+      - name: Inject base path for GitHub Pages
+        run: sed -i 's|<head>|<head><base href="/docs/">|' dist/index.html
 
       - name: Deploy
         env:
@@ -29,7 +30,6 @@ jobs:
         run: |
           TARGET_URL="https://x-access-token:${TOKEN}@github.com/ziez-dev/docs.git"
 
-          # Init fresh repo from dist
           cd dist
           git init
           git config user.name "ziez-bot"
@@ -38,5 +38,4 @@ jobs:
           git add -A
           git commit -m "deploy: $(date +'%Y-%m-%d %H:%M:%S')" || echo "Nothing to commit"
 
-          # Force push (safe for empty or existing repo)
           git push "$TARGET_URL" main --force

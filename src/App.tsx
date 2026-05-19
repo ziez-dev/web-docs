@@ -57,7 +57,7 @@ export function App() {
 
   return (
     <ThemeProvider>
-      <BrowserRouter basename={typeof process !== 'undefined' && process.env.BASE_PATH || undefined}>
+      <BrowserRouter basename={document.querySelector('base')?.getAttribute('href')?.replace(/\/$/, '') || undefined}>
         <ScrollToTop />
         <Layout content={content}>
           <Routes>
