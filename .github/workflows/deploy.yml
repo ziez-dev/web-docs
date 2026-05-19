@@ -25,7 +25,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         run: |
-          TARGET_URL="https://x-access-token:${TOKEN}@github.com/ziez-dev/web-docs-deployed.git"
+          TARGET_URL="https://x-access-token:${TOKEN}@github.com/ziez-dev/docs.git"
 
           # Init fresh repo from dist
           cd dist
