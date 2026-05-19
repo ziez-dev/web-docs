@@ -21,24 +21,20 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Checkout target repo
-        uses: actions/checkout@v4
-        with:
-          repository: ziez-dev/web-docs-deployed
-          token: ${{ secrets.DEPLOY_TOKEN }}
-          path: target
-
       - name: Deploy
+        env:
+          TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         run: |
-          # Copy build output to target repo
-          rm -rf target/*
-          cp -r dist/. target/
+          TARGET_URL="https://x-access-token:${TOKEN}@github.com/ziez-dev/web-docs-deployed.git"
 
-          # Commit and push
-          cd target
+          # Init fresh repo from dist
+          cd dist
+          git init
           git config user.name "ziez-bot"
           git config user.email "bot@ziez.dev"
+          git checkout -b main
           git add -A
-          git diff --cached --quiet && echo "No changes to deploy" && exit 0
-          git commit -m "deploy: $(date +'%Y-%m-%d %H:%M:%S')"
-          git push
+          git commit -m "deploy: $(date +'%Y-%m-%d %H:%M:%S')" || echo "Nothing to commit"
+
+          # Force push (safe for empty or existing repo)
+          git push "$TARGET_URL" main --force
