@@ -5,11 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -24,14 +21,24 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Deploy to web-docs-deployed
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Checkout target repo
+        uses: actions/checkout@v4
         with:
-          personal_token: ${{ secrets.DEPLOY_TOKEN }}
-          external_repository: ziez-dev/web-docs-deployed
-          publish_branch: main
-          publish_dir: ./dist
-          force_orphan: true
-          user_name: "github-actions[bot]"
-          user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_message: "deploy: ${{ github.sha }}"
+          repository: ziez-dev/web-docs-deployed
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          path: target
+
+      - name: Deploy
+        run: |
+          # Copy build output to target repo
+          rm -rf target/*
+          cp -r dist/. target/
+
+          # Commit and push
+          cd target
+          git config user.name "ziez-bot"
+          git config user.email "bot@ziez.dev"
+          git add -A
+          git diff --cached --quiet && echo "No changes to deploy" && exit 0
+          git commit -m "deploy: $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
