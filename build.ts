@@ -44,3 +44,12 @@ for (const file of mdFiles) {
 console.log(
 	` copied ${mdFiles.length} content files -> ${path.relative(process.cwd(), contentOut)}`,
 );
+
+const basePath = process.env.BASE_PATH;
+if (basePath) {
+	const indexPath = path.join(outdir, "index.html");
+	let html = await Bun.file(indexPath).text();
+	html = html.replace("<head>", `<head><base href="${basePath}/">`);
+	await Bun.write(indexPath, html);
+	console.log(` injected <base href="${basePath}/">`);
+}

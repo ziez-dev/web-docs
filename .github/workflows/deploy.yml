@@ -20,9 +20,8 @@ jobs:
 
       - name: Build
         run: bun run build
-
-      - name: Inject base path for GitHub Pages
-        run: sed -i 's|<head>|<head><base href="/docs/">|' dist/index.html
+        env:
+          BASE_PATH: /docs
 
       - name: Deploy
         env:
